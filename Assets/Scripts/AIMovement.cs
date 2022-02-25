@@ -8,29 +8,68 @@ public class AIMovement : MonoBehaviour
     public GameObject waypoint1;
     public GameObject waypoint2;
     public float speed = 1.5f;
+    public bool noticePlayer = false;
+    public float noticeWaypoint = 0;
     public float minGoalDistance = 0.05f;
     public float chaseDistanace = 3f;
+    
+    
     void Update()
     {
         if (Vector2.Distance(transform.position, player.position) < chaseDistanace)
         {
+            noticePlayer = true;
 
             AIMoveTowards(player);
         }
+        else if (!noticePlayer)
+        {
+            //patrol
+            if (noticeWaypoint == 0)
+            {
+                AIMoveTowards(waypoint1.transform);
+                if (Vector2.Distance(transform.position, waypoint1.transform.position) < 0.1f)
+                {
+                    noticeWaypoint = 1;
+                }
+
+            }
+            else if (noticeWaypoint == 1)
+            {
+                AIMoveTowards(waypoint2.transform);
+                if (Vector2.Distance(transform.position, waypoint2.transform.position) < 0.1f)
+                {
+                    noticeWaypoint = 0;
+                }
+
+            }
+
+
+        }
+
         else
         {
             //check which way point is close
             if (Vector2.Distance(transform.position, waypoint1.transform.position) < Vector2.Distance(transform.position, waypoint2.transform.position))
             {
+
                 AIMoveTowards(waypoint1.transform);
-                
+
             }
             else
             {
                 AIMoveTowards(waypoint2.transform);
             }
 
+            noticePlayer = false;
+
         }
+
+       
+
+     
+     
+      
 
     }
     public void AIMoveTowards(Transform goal)
