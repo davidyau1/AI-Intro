@@ -66,7 +66,7 @@ public class AIManager : BaseManager
             currentState = State.Dead;
         }
 
-        int randomAttack = Random.Range(0, 3);
+        int randomAttack = Random.Range(0, 10);
         switch (randomAttack)
         {
             case int i when i >= 0 && i <= 2:
@@ -94,7 +94,7 @@ public class AIManager : BaseManager
         {
             currentState = State.Dead;
         }
-        int randomAttack = Random.Range(0, 3);
+        int randomAttack = Random.Range(0, 10);
         switch (randomAttack)
         {
             case int i when i >= 0 && i <= 2:
