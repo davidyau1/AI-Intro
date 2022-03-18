@@ -1,12 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AIManager : BaseManager
 {
-    private PlayerManager _playerManager;
-
-    [SerializeField] protected CanvasGroup _buttonGroup;
+   
 
     public enum State
     {
@@ -14,8 +14,10 @@ public class AIManager : BaseManager
         LowHP,
         Dead
     }
-
+    private PlayerManager _playerManager;
     public State currentState;
+    [SerializeField] protected CanvasGroup _buttonGroup;
+    [SerializeField] protected Animator _anim;
 
 
     public override void TakeTurn()
@@ -50,7 +52,7 @@ public class AIManager : BaseManager
     }
     private IEnumerator Wait()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSecondsRealtime(2f);
     }
 
     void HighHpState()
@@ -124,6 +126,8 @@ public class AIManager : BaseManager
         Debug.Log("Ai casts Splash");
 
         _playerManager.DealDamage(10f);
+        _anim.SetTrigger("Splash");
+
         EndTurn();
     }
     public void IronTail() 
