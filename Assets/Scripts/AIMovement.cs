@@ -40,6 +40,8 @@ public class AIMovement : MonoBehaviour
             }
         }
     }
+
+    
     public void AIMoveTowards(Transform goal)
     {
 
